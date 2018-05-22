@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Progress on TinyVMI</title>
+    <link>https://tinyvmi.github.io/gsoc-blog/tags/progress/</link>
+    <description>Recent content in Progress on TinyVMI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 May 2018 09:20:19 -0400</lastBuildDate>
+    
+	<atom:link href="https://tinyvmi.github.io/gsoc-blog/tags/progress/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>First Week: A primary test with TinyVMI and build up website</title>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</link>
+      <pubDate>Mon, 21 May 2018 09:20:19 -0400</pubDate>
+      
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</guid>
+      <description>The problem being addressed: The previous TinyVMI project[1] was a minimal portion of LibVMI with capability of reading a target VM&amp;rsquo;s memory pages when a kernel virtual address was given. Now we need to extend TinyVMI with events support, and other capabilities of LibVMI, such as support for both 32 &amp;amp; 64 bit systems, both Windows &amp;amp; Linux OS, etc.. Additionally, during the development, documentations need to be carefully written and progresses will be reported in a public blog site.</description>
+    </item>
+    
+  </channel>
+</rss>
