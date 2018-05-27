@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>TinyVMI </title>
+    <title>TinyVMI  | Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`</title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
 
@@ -27,20 +27,18 @@
     
 
     
-      <link href="https://tinyvmi.github.io/gsoc-blog/tags/index.xml" rel="alternate" type="application/rss+xml" title="TinyVMI" />
-      <link href="https://tinyvmi.github.io/gsoc-blog/tags/index.xml" rel="feed" type="application/rss+xml" title="TinyVMI" />
-    
 
-    <meta property="og:title" content="Tags" />
-<meta property="og:description" content="Blog Posts for Progress in Google Summer of Code 2018" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/tags/" />
+    <meta property="og:title" content="Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`" />
+<meta property="og:description" content="Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/" />
 
 
 
-<meta property="og:updated_time" content="2018-05-26T22:46:06-04:00"/>
+<meta property="article:published_time" content="2018-05-26T22:46:06-04:00"/>
 
-
+<meta property="article:modified_time" content="2018-05-26T22:46:06-04:00"/>
 
 
 
@@ -49,21 +47,36 @@
 
 
 
-<meta itemprop="name" content="Tags">
-<meta itemprop="description" content="Blog Posts for Progress in Google Summer of Code 2018">
 
+
+
+<meta itemprop="name" content="Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`">
+<meta itemprop="description" content="Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.">
+
+
+<meta itemprop="datePublished" content="2018-05-26T22:46:06-04:00" />
+<meta itemprop="dateModified" content="2018-05-26T22:46:06-04:00" />
+<meta itemprop="wordCount" content="244">
+
+
+
+<meta itemprop="keywords" content="debug," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
-<meta name="twitter:description" content="Blog Posts for Progress in Google Summer of Code 2018"/>
+<meta name="twitter:title" content="Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`"/>
+<meta name="twitter:description" content="Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4."/>
 
   </head>
 
   <body class="ma0 avenir bg-near-white">
 
     
+   
+  
 
   <header>
-    <div class="pb3-m pb6-l bg-black">
+    <div class="bg-black">
       <nav class="pv3 ph3 ph4-ns" role="navigation">
   <div class="flex-l justify-between items-center center">
     <a href="https://tinyvmi.github.io/gsoc-blog" class="f3 fw2 hover-white no-underline white-90 dib">
@@ -112,96 +125,96 @@
   </div>
 </nav>
 
-      <div class="tc-l pv3 ph3 ph4-ns">
-        <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-          Tags
-        </h1>
-        
-      </div>
     </div>
   </header>
 
 
+
     <main class="pb7" role="main">
       
-    
-  <article class="cf pa3 pa4-m pa4-l">
-    <div class="measure-wide-l center f4 lh-copy nested-copy-line-height nested-links nested-img mid-gray">
+  <article class="flex-l flex-wrap justify-between mw8 center">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`</h1>
       
-    </div>
+      <time class="f6 mv4 dib tracked" datetime="2018-05-26T22:46:06-04:00">May 26, 2018</time>
+    </header>
+
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><strong>Problem:</strong> When compiling Xen from source with Ubuntu 18.04, yields <code>error: static declaration of ‘memfd_create’ follows non-static declaration</code>:</p>
+
+<pre><code>$ cd xen-4.10.0
+$ ./configure --enable-systemd --enable-stubdom
+$ make -C xen menuconfig 
+$ make dist-xen
+$ make dist-tools
+...... (looks good)
+  CC      util/memfd.o
+/xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration
+ static int memfd_create(const char *name, unsigned int flags)
+            ^~~~~~~~~~~~
+In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0,
+                 from /usr/include/x86_64-linux-gnu/bits/mman.h:45,
+                 from /usr/include/x86_64-linux-gnu/sys/mman.h:41,
+                 from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29,
+                 from /xen-4.10.0/tools/qemu-xen/include/qemu/osdep.h:104,
+                 from /xen-4.10.0/tools/qemu-xen/util/memfd.c:28:
+/usr/include/x86_64-linux-gnu/bits/mman-shared.h:46:5: note: previous declaration of ‘memfd_create’ was here
+ int memfd_create (const char *__name, unsigned int __flags) __THROW;
+     ^~~~~~~~~~~~
+/xen-4.10.0/tools/qemu-xen/rules.mak:66: recipe for target 'util/memfd.o' failed
+make: *** [util/memfd.o] Error 1
+make: Leaving directory '/xen-4.10.0/tools/qemu-xen-build'
+Makefile:220: recipe for target 'subdir-all-qemu-xen-dir' failed
+make[3]: *** [subdir-all-qemu-xen-dir] Error 2
+make[3]: Leaving directory '/xen-4.10.0/tools'
+/xen-4.10.0/tools/../tools/Rules.mk:241: recipe for target 'subdirs-install' failed
+make[2]: *** [subdirs-install] Error 2
+make[2]: Leaving directory '/xen-4.10.0/tools'
+Makefile:68: recipe for target 'install' failed
+make[1]: *** [install] Error 2
+make[1]: Leaving directory '/xen-4.10.0/tools'
+Makefile:127: recipe for target 'install-tools' failed
+make: *** [install-tools] Error 2
+</code></pre>
+
+<p>This is due to a bug <a href="https://patchwork.ozlabs.org/patch/896059/">here</a>. Since ubuntu 18.04 shipped with a newer glibc (version ). And <code>recent glibc added memfd_create in sys/mman.h, which conflicts with the definition in util/memfd.c</code>. Fortunately, this is fixed at lastest source tree of <a href="https://xenbits.xen.org/gitweb/?p=qemu-xen.git;a=commit;h=5c3fdee026a204a59cb392e43a313ab558de9682">Xen: qemu-xen</a>. Therefore, we need to update the source of <code>Xen</code> with the patched <code>qemu-xen</code>.</p>
+
+<p><strong>Solution:</strong></p>
+
+<pre><code>cd xen-4.10.0/tools/
+rm -r qemu-xen/
+git clone https://xenbits.xen.org/git-http/qemu-xen.git
+git checkout master # commit: 43139135a8938de44f66333831d3a8655d07663a
+make dist-tools
+    # success
+make dist
+sudo make install
+    # success
+</code></pre>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/debug" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">debug</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </main>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
   </article>
-  <div class="mw8 center">
-    <section class="ph4">
-      
-        <h2 class="f1">
-          <a href="/gsoc-blog/tags/debug" class="link blue hover-black">
-            Tag: debug
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Post</span>
-    <h1 class="f3 near-black">
-      <a href="/gsoc-blog/post/02-build-ubu18/" class="link black dim">
-        Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
-$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/gsoc-blog/tags/framework" class="link blue hover-black">
-            Tag: framework
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Post</span>
-    <h1 class="f3 near-black">
-      <a href="/gsoc-blog/post/01-1st-week-progress/" class="link black dim">
-        First Week: A primary test with TinyVMI and build up website
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      The problem being addressed: The previous TinyVMI project[1] was a minimal portion of LibVMI with capability of reading a target VM&rsquo;s memory pages when a kernel virtual address was given. Now we need to extend TinyVMI with events support, and other capabilities of LibVMI, such as support for both 32 &amp; 64 bit systems, both Windows &amp; Linux OS, etc.. Additionally, during the development, documentations need to be carefully written and progresses will be reported in a public blog site.
-    </div>
-  </div>
-</div>
-
-        
-      
-        <h2 class="f1">
-          <a href="/gsoc-blog/tags/progress" class="link blue hover-black">
-            Tag: progress
-          </a>
-        </h2>
-        
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Post</span>
-    <h1 class="f3 near-black">
-      <a href="/gsoc-blog/post/01-1st-week-progress/" class="link black dim">
-        First Week: A primary test with TinyVMI and build up website
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      The problem being addressed: The previous TinyVMI project[1] was a minimal portion of LibVMI with capability of reading a target VM&rsquo;s memory pages when a kernel virtual address was given. Now we need to extend TinyVMI with events support, and other capabilities of LibVMI, such as support for both 32 &amp; 64 bit systems, both Windows &amp; Linux OS, etc.. Additionally, during the development, documentations need to be carefully written and progresses will be reported in a public blog site.
-    </div>
-  </div>
-</div>
-
-        
-      
-    </section>
-  </div>
 
     </main>
     <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">

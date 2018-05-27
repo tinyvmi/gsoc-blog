@@ -38,7 +38,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-05-21T09:20:19-04:00"/>
+<meta property="og:updated_time" content="2018-05-26T23:21:22-04:00"/>
 
 
 
@@ -155,6 +155,56 @@ This blog site is used to report the progress I made each week for Google Summer
 
       <section class="w-100 mw8">
         
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/gsoc-blog/post/02-tinyvmi_gqueue/" class="color-inherit dim link">
+            Week 02: GQueue Support for LibVMI and new tests
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          This week.
+Build Xen From Source Code with Ubuntu 18.04: need to update qemu-xen
+        </div>
+          <a href="/gsoc-blog/post/02-tinyvmi_gqueue/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/gsoc-blog/post/02-build-ubu18/" class="color-inherit dim link">
+            Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.
+        </div>
+          <a href="/gsoc-blog/post/02-build-ubu18/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
         
           <div class="relative w-100 mb4">
             

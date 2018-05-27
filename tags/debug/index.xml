@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debug on TinyVMI</title>
+    <link>https://tinyvmi.github.io/gsoc-blog/tags/debug/</link>
+    <description>Recent content in Debug on TinyVMI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 May 2018 22:46:06 -0400</lastBuildDate>
+    
+	<atom:link href="https://tinyvmi.github.io/gsoc-blog/tags/debug/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`</title>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/</link>
+      <pubDate>Sat, 26 May 2018 22:46:06 -0400</pubDate>
+      
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/</guid>
+      <description>Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.</description>
+    </item>
+    
+  </channel>
+</rss>
