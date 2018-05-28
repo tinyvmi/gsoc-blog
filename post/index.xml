@@ -12,13 +12,13 @@
     
     
     <item>
-      <title>Week 02: GQueue Support for LibVMI and new tests</title>
+      <title>GQueue Ported to TinyVMI</title>
       <link>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</link>
-      <pubDate>Sat, 26 May 2018 23:21:22 -0400</pubDate>
+      <pubDate>Mon, 28 May 2018 13:21:22 -0400</pubDate>
       
       <guid>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</guid>
-      <description>This week.
-Build Xen From Source Code with Ubuntu 18.04: need to update qemu-xen</description>
+      <description>Port GQueue to TinyVMI. Ongoing LibVMI use multiple caches to temporarily store the fetched information (or reconstructed information) from the target virtual machine. This week a cache called memory_cache_lru is re-implemented in order to keep consistent with the original LibVMI code.
+memory_cache_lru is conceptually similar to TLB in an operating system, which stores the virtual address to phisical address mapping in an order of latest recent unused(LRU). LibVMI uses GQueue in GLib to manage the memory cache LRU list, and TinyVMI previously used a hand-crafted double linked list to store the LRU list.</description>
     </item>
     
     <item>
