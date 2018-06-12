@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>TinyVMI  | Milestone 01: Main Framework of LibVMI in MiniOS</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.41-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/gsoc-blog/dist/css/app.ab4b67a3ea25990fa8279f3b7ef08b61.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Milestone 01: Main Framework of LibVMI in MiniOS" />
+<meta property="og:description" content="First Milestone Achieved by Porting Main Framework of LibVMI into MiniOS" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/" />
+
+
+
+<meta property="article:published_time" content="2018-06-11T12:49:53-04:00"/>
+
+<meta property="article:modified_time" content="2018-06-11T12:49:53-04:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Milestone 01: Main Framework of LibVMI in MiniOS">
+<meta itemprop="description" content="First Milestone Achieved by Porting Main Framework of LibVMI into MiniOS">
+
+
+<meta itemprop="datePublished" content="2018-06-11T12:49:53-04:00" />
+<meta itemprop="dateModified" content="2018-06-11T12:49:53-04:00" />
+<meta itemprop="wordCount" content="675">
+
+
+
+<meta itemprop="keywords" content="framework,progress," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Milestone 01: Main Framework of LibVMI in MiniOS"/>
+<meta name="twitter:description" content="First Milestone Achieved by Porting Main Framework of LibVMI into MiniOS"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://tinyvmi.github.io/gsoc-blog" class="f3 fw2 hover-white no-underline white-90 dib">
+      TinyVMI
+    </a>
+    <div class="flex-l items-center">
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/gsoc-blog/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/gsoc-blog/post/" title="Posts page">
+              Posts
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+  <a href="https://twitter.com/cnlelema" class="link-transition twitter link dib z-999 pt3 pt0-l mr2" title="Twitter link">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+
+
+
+
+
+  <a href="https://github.com/tinyvmi/tinyvmi" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  <article class="flex-l flex-wrap justify-between mw8 center">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Milestone 01: Main Framework of LibVMI in MiniOS</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-06-11T12:49:53-04:00">June 11, 2018</time>
+    </header>
+
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<h3 id="1-milestone-goal-port-the-skeleton-of-libvmi-and-system-library-dependencies">1. Milestone Goal: &ldquo;Port the skeleton of LibVMI and system library dependencies&rdquo;</h3>
+
+<p>The goal of the first milestone is described as following in the proposal to GSoC 2018:</p>
+
+<blockquote>
+<p>Since the previous work of TinyVMI already proved the feasibility of porting LibVMI into MiniOS, we can take further steps to port as many modules as possible into MiniOS. We should a) try to keep the original LibVMI file/folder structure unless we have to change it to adopt the MiniOS features. b) deleting all the dynamic library dependencies and converting them into static library functions. These include but not limited to some libxenstore, libxencontrol functions. c) implement all the functions that have dependence on the libraries that are unavailable in MiniOS. These include but not limited to some glib function/structures like: GHashTable, GSList, etc..</p>
+
+<p>During this stage, we only test the main framework of memory mapping functionality and postpone others to future steps. We will hardcoding some parameters and disabling some modules of LibVMI, so that we can debug and port them one by one in the future. For example, we will disable the function of input module (which reads libvmi.conf) and hardcode our simplified information into the framework for testing, such as domain ID (hardcode instead of converting from domain name), virtual addresses (hardcode instead of reading it from system map file). We will also disable the os support (such as linux_init, windoes_init functions), events support, and different architecture supports.</p>
+</blockquote>
+
+<h3 id="2-what-has-been-done">2. What Has Been Done</h3>
+
+<ul>
+<li><p>Documentation of Getting Started with TinyVMI: <a href="https://tinyvmi.github.io/get-started/">https://tinyvmi.github.io/get-started/</a></p></li>
+
+<li><p>Xenstore Permission setup in Dom0 on Xen. Currently, TinyVMI is able to read from Xenstore directories to convert the target domain name into domain ID. This requires the permission of reading <code>/local/domain</code> in Xenstore to be granted to TinyVMI. For simplicity, the privilege is currently set in Dom0 via <code>xenstore-chmod</code> as shown <a href="https://tinyvmi.github.io/get-started/run-tinyvmi/">here</a>.</p></li>
+
+<li><p>Hardcoded Input of Target OS Information. The directory <code>./tiny-vmi/config/target_conf/</code> is added to store hardcoded strings in corresponding to information in <code>~/etc/libvmi.conf</code> in LibVMI.</p>
+
+<ul>
+<li>Strings are encoded using Linux command <code>xdd -i &lt;input_file&gt;</code></li>
+<li>Examples are in directory <code>./tiny-vmi/config/target_conf_examples</code>.</li>
+<li>Files in <code>./tiny-vmi/config/target_conf/*</code> are symlinked to the example directory for easier exchange between different target OSes.</li>
+</ul></li>
+
+<li><p>Library dependencies on GLib functionalities are manually implemented or ported into MiniOS.</p>
+
+<ul>
+<li>Data structures include GHashTable, GList, GSList, GQueue.</li>
+<li>For each data structure, a minimal subset of the functions are ported: only the functions used by LibVMI are ported to MiniOS.</li>
+<li>Implementations can be found at <code>./tiny-vmi/tiny_glib/</code>.</li>
+</ul></li>
+
+<li><p>Skeleton of LibVMI is ported into TinyVMI by manually porting the source code file by file, or function by function. Most code structures of LibVMI are kept and necessary changes are made to make it compatible in MiniOS. In the <a href="https://github.com/tinyvmi/tinyvmi/commit/a317bdf72e006cd31612088c676e838d9dcb963e">latest commit</a>, major changes related to LibVMI source code include:</p>
+
+<ul>
+<li>Subdirectory &lsquo;<code>./libvmi/</code>&rsquo; in LibVMI is changed to &lsquo;<code>./tiny-vmi/</code>&rsquo; in TinyVMI.</li>
+<li>In directory <code>./tiny-vmi/config/</code> only C source files (<code>.h</code> and <code>.c</code>) are used in TinyVMI. Others (<code>lexicon.l</code>, <code>grammar.y</code>, <code>Makefile.am</code>, etc.) are ignored.</li>
+<li>Configure file <code>./include/tiny-config.h</code> is based on the file in LibVMI <code>./config.h</code>.</li>
+<li>Xenstore and Xencontrl Interface changed to static library in <code>./tiny-vmi/driver/xen/libxs_wrapper.c</code> and <code>./tiny-vmi/driver/xen/libxc_wrapper.c</code>. Currently only support Xen versions &gt;= 4.8.</li>
+<li>A minimized subset of GLib for TinyVMI is defined in <code>./tiny-vmi/tiny_glib/</code>.</li>
+<li>Test cases in LibVMI is ported to <code>./tests/</code> directory, where all <code>main</code> functions are renamed according to their functionalities.</li>
+<li>Rekall files are not ported yet.</li>
+</ul></li>
+</ul>
+
+<h3 id="3-lessons-learned">3. Lessons Learned</h3>
+
+<p>Manually porting the source code in the granularity of files/functions requires a lot human efforts and will be not compatible with future release of LibVMI. Therefore, this strategy should be avoided in the future development. As an alternative, TinyVMI can include the whole LibVMI source code as a module with a minimal patch. To keep pace with the future updates of LibVMI, we can only update the minimal patch.</p>
+
+<h3 id="4-future-work">4. Future Work</h3>
+
+<h4 id="long-term-goals">Long term goals:</h4>
+
+<ul>
+<li>Full support of all LibVMI functions.</li>
+<li>TinyVMI as a stubdom on Xen with secure booting and remote control interface.</li>
+</ul>
+
+<h4 id="next-steps">Next steps:</h4>
+
+<ul>
+<li>Rekall file support: json file parsing in TinyVMI.</li>
+<li>If time allowed, find out an efficient way to keep pace with the latest updates of LibVMI.</li>
+</ul>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/framework" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">framework</a>
+   </li>
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/progress" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">progress</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </main>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/01-1st-week-progress/">First Week: A primary test with TinyVMI and build up website</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/02-tinyvmi_gqueue/">GQueue Ported to TinyVMI</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://tinyvmi.github.io/gsoc-blog" >
+    &copy; 2018 TinyVMI
+  </a>
+  
+
+
+
+  <a href="https://twitter.com/cnlelema" class="link-transition twitter link dib z-999 pt3 pt0-l mr2" title="Twitter link">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+
+
+
+
+
+  <a href="https://github.com/tinyvmi/tinyvmi" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="Github link">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+  </div>
+</footer>
+
+    
+
+  <script src="/gsoc-blog/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>

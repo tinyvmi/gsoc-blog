@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Milestone 01: Main Framework of LibVMI in MiniOS</title>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</link>
+      <pubDate>Mon, 11 Jun 2018 12:49:53 -0400</pubDate>
+      
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</guid>
+      <description>1. Milestone Goal: &amp;ldquo;Port the skeleton of LibVMI and system library dependencies&amp;rdquo; The goal of the first milestone is described as following in the proposal to GSoC 2018:
+ Since the previous work of TinyVMI already proved the feasibility of porting LibVMI into MiniOS, we can take further steps to port as many modules as possible into MiniOS. We should a) try to keep the original LibVMI file/folder structure unless we have to change it to adopt the MiniOS features.</description>
+    </item>
+    
+    <item>
       <title>GQueue Ported to TinyVMI</title>
       <link>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</link>
       <pubDate>Mon, 28 May 2018 13:21:22 -0400</pubDate>
