@@ -6,37 +6,46 @@
     <description>Recent content in Progress on TinyVMI</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Jun 2018 12:49:53 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 16 Jul 2018 03:56:10 -0400</lastBuildDate>
     
 	<atom:link href="https://tinyvmi.github.io/gsoc-blog/tags/progress/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Milestone 02: Enabling Rekall profile, OS support, Xen events support in TinyVMI</title>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/</link>
+      <pubDate>Mon, 16 Jul 2018 03:56:10 -0400</pubDate>
+      
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/</guid>
+      <description>1. Milestone Goal: &amp;ldquo;Port input module and os support, event support, architecture support, and all examples of LibVMi into MiniOS&amp;rdquo; The goal of the second milestone is described in section 3.1.2 ~ 3.1.6 in the proposal to GSoC 2018. In brief, it includes a) reading configurations of target VM (libvmi.conf); b) parsing json files containing target VM; c) support introspecting both Linux and Windows virtual machines; d) architecture support for both x86 and arm; e) testing all examples of LibVMI in TinyVMI.</description>
+    </item>
+    
+    <item>
       <title>Milestone 01: Main Framework of LibVMI in MiniOS</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w04-tinyvmi-milestone-framework/</link>
       <pubDate>Mon, 11 Jun 2018 12:49:53 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w04-tinyvmi-milestone-framework/</guid>
       <description>1. Milestone Goal: &amp;ldquo;Port the skeleton of LibVMI and system library dependencies&amp;rdquo; The goal of the first milestone is described as following in the proposal to GSoC 2018:
  Since the previous work of TinyVMI already proved the feasibility of porting LibVMI into MiniOS, we can take further steps to port as many modules as possible into MiniOS. We should a) try to keep the original LibVMI file/folder structure unless we have to change it to adopt the MiniOS features.</description>
     </item>
     
     <item>
       <title>GQueue Ported to TinyVMI</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w02-tinyvmi_gqueue/</link>
       <pubDate>Mon, 28 May 2018 13:21:22 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w02-tinyvmi_gqueue/</guid>
       <description>Port GQueue to TinyVMI. Ongoing LibVMI use multiple caches to temporarily store the fetched information (or reconstructed information) from the target virtual machine. This week a cache called memory_cache_lru is re-implemented in order to keep consistent with the original LibVMI code.
 memory_cache_lru is conceptually similar to TLB in an operating system, which stores the virtual address to phisical address mapping in an order of latest recent unused(LRU). LibVMI uses GQueue in GLib to manage the memory cache LRU list, and TinyVMI previously used a hand-crafted double linked list to store the LRU list.</description>
     </item>
     
     <item>
       <title>First Week: A primary test with TinyVMI and build up website</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w01-1st-week-progress/</link>
       <pubDate>Mon, 21 May 2018 09:20:19 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w01-1st-week-progress/</guid>
       <description>The problem being addressed: The previous TinyVMI project[1] was a minimal portion of LibVMI with capability of reading a target VM&amp;rsquo;s memory pages when a kernel virtual address was given. Now we need to extend TinyVMI with events support, and other capabilities of LibVMI, such as support for both 32 &amp;amp; 64 bit systems, both Windows &amp;amp; Linux OS, etc.. Additionally, during the development, documentations need to be carefully written and progresses will be reported in a public blog site.</description>
     </item>
     

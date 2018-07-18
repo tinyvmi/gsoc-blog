@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>TinyVMI </title>
+    <title>TinyVMI  | How to Cross Compile a Static Library in Xen Mini-OS</title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
 
@@ -28,10 +28,16 @@
 
     
 
-    <meta property="og:title" content="404 Page not found" />
-<meta property="og:description" content="Blog Posts for Progress in Google Summer of Code 2018" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="" />
+    <meta property="og:title" content="How to Cross Compile a Static Library in Xen Mini-OS" />
+<meta property="og:description" content="Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/post/w08-cross-compile-lib-in-minios/" />
+
+
+
+<meta property="article:published_time" content="2018-07-09T18:05:55-04:00"/>
+
+<meta property="article:modified_time" content="2018-07-09T18:05:55-04:00"/>
 
 
 
@@ -43,21 +49,28 @@
 
 
 
+<meta itemprop="name" content="How to Cross Compile a Static Library in Xen Mini-OS">
+<meta itemprop="description" content="Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib.">
+
+
+<meta itemprop="datePublished" content="2018-07-09T18:05:55-04:00" />
+<meta itemprop="dateModified" content="2018-07-09T18:05:55-04:00" />
+<meta itemprop="wordCount" content="105">
 
 
 
-<meta itemprop="name" content="404 Page not found">
-<meta itemprop="description" content="Blog Posts for Progress in Google Summer of Code 2018">
-
+<meta itemprop="keywords" content="debug,dependences," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="404 Page not found"/>
-<meta name="twitter:description" content="Blog Posts for Progress in Google Summer of Code 2018"/>
+<meta name="twitter:title" content="How to Cross Compile a Static Library in Xen Mini-OS"/>
+<meta name="twitter:description" content="Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib."/>
 
   </head>
 
   <body class="ma0 avenir bg-near-white">
 
     
+   
+  
 
   <header>
     <div class="bg-green">
@@ -120,13 +133,63 @@
   </header>
 
 
+
     <main class="pb7" role="main">
       
-    <article class="center cf pv5 measure-wide-l">
-      <h1>
-        This is not the page you were looking for
-      </h1>
-    </article>
+  <article class="flex-l flex-wrap justify-between mw8 center">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">How to Cross Compile a Static Library in Xen Mini-OS</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-07-09T18:05:55-04:00">July 9, 2018</time>
+    </header>
+
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
+
+<p>In this post, we will introduce how to cross compile a new library to Mini-OS in Xen: which part of Xen source code needs to be changed and why.</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/debug" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">debug</a>
+   </li>
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/dependences" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">dependences</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </main>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w02-tinyvmi_gqueue/">GQueue Ported to TinyVMI</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w02-build-ubu18/">Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
 
     </main>
     <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">

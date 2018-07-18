@@ -3,28 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</loc>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/</loc>
+    <lastmod>2018-07-16T03:56:10-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w08-cross-compile-lib-in-minios/</loc>
+    <lastmod>2018-07-09T18:05:55-04:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w04-tinyvmi-milestone-framework/</loc>
     <lastmod>2018-06-11T12:49:53-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</loc>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w02-tinyvmi_gqueue/</loc>
     <lastmod>2018-05-28T13:21:22-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tinyvmi.github.io/gsoc-blog/post/02-build-ubu18/</loc>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w02-build-ubu18/</loc>
     <lastmod>2018-05-26T22:46:06-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</loc>
+    <loc>https://tinyvmi.github.io/gsoc-blog/post/w01-1st-week-progress/</loc>
     <lastmod>2018-05-21T09:20:19-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -51,14 +65,14 @@
   
   <url>
     <loc>https://tinyvmi.github.io/gsoc-blog/tags/debug/</loc>
-    <lastmod>2018-05-26T22:46:06-04:00</lastmod>
+    <lastmod>2018-07-09T18:05:55-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tinyvmi.github.io/gsoc-blog/tags/dependences/</loc>
-    <lastmod>2018-05-28T13:21:22-04:00</lastmod>
+    <lastmod>2018-07-09T18:05:55-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
@@ -72,21 +86,21 @@
   
   <url>
     <loc>https://tinyvmi.github.io/gsoc-blog/tags/progress/</loc>
-    <lastmod>2018-06-11T12:49:53-04:00</lastmod>
+    <lastmod>2018-07-16T03:56:10-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tinyvmi.github.io/gsoc-blog/tags/</loc>
-    <lastmod>2018-05-26T22:46:06-04:00</lastmod>
+    <lastmod>2018-07-09T18:05:55-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://tinyvmi.github.io/gsoc-blog/</loc>
-    <lastmod>2018-06-11T12:49:53-04:00</lastmod>
+    <lastmod>2018-07-16T03:56:10-04:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

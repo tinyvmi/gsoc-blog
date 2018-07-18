@@ -13,20 +13,20 @@
     
     <item>
       <title>Milestone 01: Main Framework of LibVMI in MiniOS</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w04-tinyvmi-milestone-framework/</link>
       <pubDate>Mon, 11 Jun 2018 12:49:53 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/04-tinyvmi-milestone-framework/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w04-tinyvmi-milestone-framework/</guid>
       <description>1. Milestone Goal: &amp;ldquo;Port the skeleton of LibVMI and system library dependencies&amp;rdquo; The goal of the first milestone is described as following in the proposal to GSoC 2018:
  Since the previous work of TinyVMI already proved the feasibility of porting LibVMI into MiniOS, we can take further steps to port as many modules as possible into MiniOS. We should a) try to keep the original LibVMI file/folder structure unless we have to change it to adopt the MiniOS features.</description>
     </item>
     
     <item>
       <title>First Week: A primary test with TinyVMI and build up website</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w01-1st-week-progress/</link>
       <pubDate>Mon, 21 May 2018 09:20:19 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/01-1st-week-progress/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w01-1st-week-progress/</guid>
       <description>The problem being addressed: The previous TinyVMI project[1] was a minimal portion of LibVMI with capability of reading a target VM&amp;rsquo;s memory pages when a kernel virtual address was given. Now we need to extend TinyVMI with events support, and other capabilities of LibVMI, such as support for both 32 &amp;amp; 64 bit systems, both Windows &amp;amp; Linux OS, etc.. Additionally, during the development, documentations need to be carefully written and progresses will be reported in a public blog site.</description>
     </item>
     

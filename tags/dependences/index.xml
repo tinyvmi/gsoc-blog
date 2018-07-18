@@ -6,17 +6,26 @@
     <description>Recent content in Dependences on TinyVMI</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 May 2018 13:21:22 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 09 Jul 2018 18:05:55 -0400</lastBuildDate>
     
 	<atom:link href="https://tinyvmi.github.io/gsoc-blog/tags/dependences/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>How to Cross Compile a Static Library in Xen Mini-OS</title>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w08-cross-compile-lib-in-minios/</link>
+      <pubDate>Mon, 09 Jul 2018 18:05:55 -0400</pubDate>
+      
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w08-cross-compile-lib-in-minios/</guid>
+      <description>Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib.</description>
+    </item>
+    
+    <item>
       <title>GQueue Ported to TinyVMI</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</link>
+      <link>https://tinyvmi.github.io/gsoc-blog/post/w02-tinyvmi_gqueue/</link>
       <pubDate>Mon, 28 May 2018 13:21:22 -0400</pubDate>
       
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/02-tinyvmi_gqueue/</guid>
+      <guid>https://tinyvmi.github.io/gsoc-blog/post/w02-tinyvmi_gqueue/</guid>
       <description>Port GQueue to TinyVMI. Ongoing LibVMI use multiple caches to temporarily store the fetched information (or reconstructed information) from the target virtual machine. This week a cache called memory_cache_lru is re-implemented in order to keep consistent with the original LibVMI code.
 memory_cache_lru is conceptually similar to TLB in an operating system, which stores the virtual address to phisical address mapping in an order of latest recent unused(LRU). LibVMI uses GQueue in GLib to manage the memory cache LRU list, and TinyVMI previously used a hand-crafted double linked list to store the LRU list.</description>
     </item>
