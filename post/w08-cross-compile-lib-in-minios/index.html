@@ -55,7 +55,7 @@
 
 <meta itemprop="datePublished" content="2018-07-09T18:05:55-04:00" />
 <meta itemprop="dateModified" content="2018-07-09T18:05:55-04:00" />
-<meta itemprop="wordCount" content="713">
+<meta itemprop="wordCount" content="734">
 
 
 
@@ -224,14 +224,15 @@ Finally, we need to update the dependent list of target <strong>tinyvmi</strong>
 <p>Now we are ready to compile the library. You can either run make with the cross compile target:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd stubdom/
-make cross-json-c # </code></pre></div>
+make cross-json-c </code></pre></div>
 
 <p>or compile TinyVMI by:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd stubdom/
 make tinyvmi-stubdom</code></pre></div>
 
-<p>If errors occurs, you might need to double check the configurations and building process of the library by reading the documentation shipped with the library. That&rsquo;s all. Thank you!</p>
+<p>If succeed, you will find the static library file (such as libjson-c.a) under the directory <strong>$(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf</strong> (will be  /xen-src/stubdom/cross-root-x86_64/x86_64-xen-elf/lib/libjson-c.a for libjson-c)
+If errors occur, you might need to tweak the configurations and building options of the library by reading the documentation shipped with the library source code. That&rsquo;s all. Thank you!</p>
 <ul class="pa0">
   
    <li class="list">
