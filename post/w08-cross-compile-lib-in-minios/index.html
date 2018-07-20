@@ -55,7 +55,7 @@
 
 <meta itemprop="datePublished" content="2018-07-09T18:05:55-04:00" />
 <meta itemprop="dateModified" content="2018-07-09T18:05:55-04:00" />
-<meta itemprop="wordCount" content="105">
+<meta itemprop="wordCount" content="713">
 
 
 
@@ -148,9 +148,90 @@
       <time class="f6 mv4 dib tracked" datetime="2018-07-09T18:05:55-04:00">July 9, 2018</time>
     </header>
 
-    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking.
+To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
 
-<p>In this post, we will introduce how to cross compile a new library to Mini-OS in Xen: which part of Xen source code needs to be changed and why.</p>
+<p>The tiny kernel of Mini-OS has limited support for most high level libraries. Some of the libraries could be directly compiled into MiniOS without any changes, such as libjasson, while others might needs manually customized for MiniOS by eliminating the unsupported portions or only keeping the necessary parts of the library, such as <a href="https://github.com/libvmi/glib_lite">the reduced GLib for LibVMI</a>.</p>
+
+<p>In this post, we will introduce how to directly compile a new library to Mini-OS in Xen: which part of Xen source code needs to be changed and why. Keep in mind that not all libraries could be directly compiled to Mini-OS, and even if it supports the compilation, much efforts still need to be done to make it work as expected. If errors occur by following the instructions below, you will need more efforts to debug the project. This will need some hand on experience of GNU make and C language.</p>
+
+<p>Basically, you will need three parts of changes to make the library successfully compiled into Mini-OS:</p>
+
+<ol>
+<li><p>Application that calls library functions. Needless to say, this is a must-have to make sure the library APIs could indeed be used in a Mini-OS app. For example, in order to cross compile libjson-c in Mini-OS, you could add the following source code in Mini-OS applicaiton with library header <strong>json-c/json.h</strong> and one of the API <strong>json_tokener_parse(char *str)</strong>, as following:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">// tinyvmi/tiny-vmi/rekall.c
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;json-c/json.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+    status_t <span style="color:#a6e22e">rekall_profile_symbol_to_rva</span>(... )
+    {
+        ...
+       
+        json_object <span style="color:#f92672">*</span>root <span style="color:#f92672">=</span> json_tokener_parse(linux_rekall_string);
+
+        ...
+    }
+
+    </code></pre></div></li>
+
+<li><p>Makefile in stubdom (<a href="https://github.com/tinyvmi/xen/blob/xen-4.10.0-tinyvmi/stubdom/Makefile">xen-src/stubdom/Makefile</a>). In this Makefile, the library will be downloaded from Internet, configured, statically compiled, and finally installed to a cross compile root directory. There are already some examples (such as <strong><a href="https://github.com/tinyvmi/xen/blob/44ce23c0d811c08bb559c46a171b234c3ff714a2/stubdom/Makefile#L78">newlib</a></strong>) in the original Makefile, so we can just craft a new commands similarly for a new library. Among those commands, we will need to define a cross compile target (<strong>cross-json-c</strong>), along with its dependent targets. For example, for libjson-c, the following lines are added (<a href="https://github.com/tinyvmi/xen/blob/1811c836d9e7d999fbdcf0c470502b8f1fe3f388/stubdom/Makefile#L104">code</a>):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make">    <span style="color:#75715e"># file: xen-src/stubdom/Makefile
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">##############
+</span><span style="color:#75715e"></span>    <span style="color:#75715e"># Cross-json-c
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">##############
+</span><span style="color:#75715e"></span>    
+    JSON_C_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://s3.amazonaws.com/json-c_releases/releases&#34;</span>
+    JSON_C_VERSION<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>.13
+
+    TARGET_CFLAGS <span style="color:#f92672">+=</span> -Wno-error
+
+    json-c-<span style="color:#66d9ef">$(</span>JSON_C_VERSION<span style="color:#66d9ef">)</span>.tar.gz:
+        <span style="color:#66d9ef">$(</span>FETCHER<span style="color:#66d9ef">)</span> $@ <span style="color:#66d9ef">$(</span>JSON_C_URL<span style="color:#66d9ef">)</span>/$@
+
+    json-c-<span style="color:#66d9ef">$(</span>XEN_TARGET_ARCH<span style="color:#66d9ef">)</span>: json-c-<span style="color:#66d9ef">$(</span>JSON_C_VERSION<span style="color:#66d9ef">)</span>.tar.gz
+        tar xzf $&lt;
+        mv json-c-<span style="color:#66d9ef">$(</span>JSON_C_VERSION<span style="color:#66d9ef">)</span> $@
+
+    JSON_C_STAMPFILE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>CROSS_ROOT<span style="color:#66d9ef">)</span>/<span style="color:#66d9ef">$(</span>GNU_TARGET_ARCH<span style="color:#66d9ef">)</span>-xen-elf/lib/libjson-c.a
+    .PHONY: cross-json-c
+    cross-json-c: <span style="color:#66d9ef">$(</span>JSON_C_STAMPFILE<span style="color:#66d9ef">)</span>
+    <span style="color:#66d9ef">$(</span>JSON_C_STAMPFILE<span style="color:#66d9ef">)</span>: json-c-<span style="color:#66d9ef">$(</span>XEN_TARGET_ARCH<span style="color:#66d9ef">)</span> <span style="color:#66d9ef">$(</span>NEWLIB_STAMPFILE<span style="color:#66d9ef">)</span>
+        <span style="color:#f92672">(</span> cd json-c-<span style="color:#66d9ef">$(</span>XEN_TARGET_ARCH<span style="color:#66d9ef">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        sh autogen.sh <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        CFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>TARGET_CPPFLAGS<span style="color:#66d9ef">)</span><span style="color:#e6db74"> </span><span style="color:#66d9ef">$(</span>TARGET_CFLAGS<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> CC<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>CC<span style="color:#66d9ef">)</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        ./configure --disable-shared --disable-threading <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>            --prefix<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>CROSS_PREFIX<span style="color:#66d9ef">)</span>/<span style="color:#66d9ef">$(</span>GNU_TARGET_ARCH<span style="color:#66d9ef">)</span>-xen-elf <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>            --exec-prefix<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>CROSS_PREFIX<span style="color:#66d9ef">)</span>/<span style="color:#66d9ef">$(</span>GNU_TARGET_ARCH<span style="color:#66d9ef">)</span>-xen-elf <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>            --host<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>GNU_TARGET_ARCH<span style="color:#66d9ef">)</span>-xen-elf <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        <span style="color:#66d9ef">$(</span>MAKE<span style="color:#66d9ef">)</span> DESTDIR<span style="color:#f92672">=</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        <span style="color:#66d9ef">$(</span>MAKE<span style="color:#66d9ef">)</span> DESTDIR<span style="color:#f92672">=</span> install <span style="color:#f92672">)</span>
+
+        ...
+
+        .PHONY: tinyvmi
+        tinyvmi: cross-json-c cross-newlib <span style="color:#66d9ef">$(</span>CROSS_ROOT<span style="color:#66d9ef">)</span> tinyvmi-minios-config.mk
+
+    
+</code></pre></div> In this example, we first define the URL and version number of the library. Then the target <strong>json-c-$(JSON_C_VERSION).tar.gz</strong> will download the source code. <strong>json-c-$(XEN_TARGET_ARCH)</strong> will extract the source and rename the folder. Then, the target <strong>$(JSON_C_STAMPFILE)</strong> or <strong>cross-json-c</strong> will go to the source code directory and configure, compile, and install the library in a cross-compile manner. Those cross compile setups are usually given via configure options. This should be kept consistent with the documentation of the specific library we are compiling. Running <strong>./configure &ndash;help</strong> would show the available options.  In general, we will need to give the <strong>CFLAGS</strong>, <strong>&ndash;prefix</strong>, and <strong>&ndash;host</strong> to specify necessary build environment variables for the target machine (here the machine is the Mini-OS VM recognized as $(GNU_TARGET_ARCH)-xen-elf).
+Finally, we need to update the dependent list of target <strong>tinyvmi</strong>, so that every time we rebuild <strong>tinyvmi</strong>, the library will be built when necessary.</p></li>
+
+<li><p>Makefile of Mini-OS (<a href="https://github.com/tinyvmi/mini-os/blob/xen-4.10.0/Makefile">xen-src/extras/mini-os/Makefile</a>). In this Makefile, the library load flags <strong>APP_LDLIBS</strong> (for example, <strong>-ljson-c</strong>) will be given to finally link the static library into the Mini-OS application. To link libjson-c, the following line will do the trick(<a href="https://github.com/tinyvmi/mini-os/blob/c5cf2aa01a5cc7bc66a6d519bbc5933daa857411/Makefile#L147">code</a>):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"> APP_LDLIBS <span style="color:#f92672">+=</span> -ljson-c
+</code></pre></div></p></li>
+</ol>
+
+<p>Now we are ready to compile the library. You can either run make with the cross compile target:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd stubdom/
+make cross-json-c # </code></pre></div>
+
+<p>or compile TinyVMI by:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd stubdom/
+make tinyvmi-stubdom</code></pre></div>
+
+<p>If errors occurs, you might need to double check the configurations and building process of the library by reading the documentation shipped with the library. That&rsquo;s all. Thank you!</p>
 <ul class="pa0">
   
    <li class="list">
