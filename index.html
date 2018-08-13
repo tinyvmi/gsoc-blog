@@ -38,7 +38,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-07-16T03:56:10-04:00"/>
+<meta property="og:updated_time" content="2018-08-13T03:21:22-04:00"/>
 
 
 
@@ -177,6 +177,55 @@ This blog site is used to report the progress I made each week for Google Summer
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/gsoc-blog/post/w13-final/" class="color-inherit dim link">
+            Porting LibVMI to Mini-OS on Xen Hypervisor
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources.
+        </div>
+          <a href="/gsoc-blog/post/w13-final/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/gsoc-blog/post/w12-cpp-cross-compile/" class="color-inherit dim link">
+            Cross Compile C&#43;&#43; Standard Library into Mini-OS
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          
+        </div>
+          <a href="/gsoc-blog/post/w12-cpp-cross-compile/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
           <a href="/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/" class="color-inherit dim link">
             Milestone 02: Enabling Rekall profile, OS support, Xen events support in TinyVMI
             </a>
@@ -193,61 +242,24 @@ This blog site is used to report the progress I made each week for Google Summer
 
           </div>
         
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/gsoc-blog/post/w08-cross-compile-lib-in-minios/" class="color-inherit dim link">
-            How to Cross Compile a Static Library in Xen Mini-OS
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib.
-        </div>
-          <a href="/gsoc-blog/post/w08-cross-compile-lib-in-minios/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/gsoc-blog/post/w04-tinyvmi-milestone-framework/" class="color-inherit dim link">
-            Milestone 01: Main Framework of LibVMI in MiniOS
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          1. Milestone Goal: &ldquo;Port the skeleton of LibVMI and system library dependencies&rdquo; The goal of the first milestone is described as following in the proposal to GSoC 2018:
- Since the previous work of TinyVMI already proved the feasibility of porting LibVMI into MiniOS, we can take further steps to port as many modules as possible into MiniOS. We should a) try to keep the original LibVMI file/folder structure unless we have to change it to adopt the MiniOS features.
-        </div>
-          <a href="/gsoc-blog/post/w04-tinyvmi-milestone-framework/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
       </section>
 
       
       <section class="w-100">
         <h1 class="f3">More</h1>
         
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/gsoc-blog/post/w08-cross-compile-lib-in-minios/" class="link black dim">
+              How to Cross Compile a Static Library in Xen Mini-OS
+            </a>
+          </h2>
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/gsoc-blog/post/w04-tinyvmi-milestone-framework/" class="link black dim">
+              Milestone 01: Main Framework of LibVMI in MiniOS
+            </a>
+          </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
             <a href="/gsoc-blog/post/w02-tinyvmi_gqueue/" class="link black dim">
@@ -258,12 +270,6 @@ This blog site is used to report the progress I made each week for Google Summer
           <h2 class="f5 fw4 mb4 dib mr3">
             <a href="/gsoc-blog/post/w02-build-ubu18/" class="link black dim">
               Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`
-            </a>
-          </h2>
-        
-          <h2 class="f5 fw4 mb4 dib mr3">
-            <a href="/gsoc-blog/post/w01-1st-week-progress/" class="link black dim">
-              First Week: A primary test with TinyVMI and build up website
             </a>
           </h2>
         

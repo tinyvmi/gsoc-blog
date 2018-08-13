@@ -55,7 +55,7 @@
 
 <meta itemprop="datePublished" content="2018-07-09T18:05:55-04:00" />
 <meta itemprop="dateModified" content="2018-07-09T18:05:55-04:00" />
-<meta itemprop="wordCount" content="734">
+<meta itemprop="wordCount" content="736">
 
 
 
@@ -151,7 +151,7 @@
     <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking.
 To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
 
-<p>The tiny kernel of Mini-OS has limited support for most high level libraries. Some of the libraries could be directly compiled into MiniOS without any changes, such as libjasson, while others might needs manually customized for MiniOS by eliminating the unsupported portions or only keeping the necessary parts of the library, such as <a href="https://github.com/libvmi/glib_lite">the reduced GLib for LibVMI</a>.</p>
+<p>The tiny kernel of Mini-OS has limited support for most high level libraries. Some of the libraries could be directly compiled into MiniOS without any changes, such as libjasson, while others might need to be manually customized for MiniOS by eliminating the unsupported portions or only keeping the necessary parts of the library, such as <a href="https://github.com/libvmi/glib_lite">the reduced GLib for LibVMI</a>.</p>
 
 <p>In this post, we will introduce how to directly compile a new library to Mini-OS in Xen: which part of Xen source code needs to be changed and why. Keep in mind that not all libraries could be directly compiled to Mini-OS, and even if it supports the compilation, much efforts still need to be done to make it work as expected. If errors occur by following the instructions below, you will need more efforts to debug the project. This will need some hand on experience of GNU make and C language.</p>
 

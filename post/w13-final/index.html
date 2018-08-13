@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>TinyVMI  | Porting LibVMI to Mini-OS on Xen Hypervisor</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.41-DEV" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+    
+      <link href="/gsoc-blog/dist/css/app.ab4b67a3ea25990fa8279f3b7ef08b61.css" rel="stylesheet">
+    
+
+    
+
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Porting LibVMI to Mini-OS on Xen Hypervisor" />
+<meta property="og:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/post/w13-final/" />
+
+
+
+<meta property="article:published_time" content="2018-08-13T03:21:22-04:00"/>
+
+<meta property="article:modified_time" content="2018-08-13T03:21:22-04:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Porting LibVMI to Mini-OS on Xen Hypervisor">
+<meta itemprop="description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources.">
+
+
+<meta itemprop="datePublished" content="2018-08-13T03:21:22-04:00" />
+<meta itemprop="dateModified" content="2018-08-13T03:21:22-04:00" />
+<meta itemprop="wordCount" content="1884">
+
+
+
+<meta itemprop="keywords" content="progress," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Porting LibVMI to Mini-OS on Xen Hypervisor"/>
+<meta name="twitter:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-green">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://tinyvmi.github.io/gsoc-blog" class="f3 fw2 hover-white no-underline white-90 dib">
+      TinyVMI
+    </a>
+    <div class="flex-l items-center">
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/gsoc-blog/about/" title="About page">
+              About
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/gsoc-blog/post/" title="Posts page">
+              Posts
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+
+
+
+  <a href="https://tinyvmi.github.io" class="link-transition facebook link dib z-999 pt3 pt0-l mr2" title="TinyVMI Documentation">
+    <i class='fa fa-bookmark'></i> <label>Documentation</label>
+  </a>
+
+
+
+  <a href="https://github.com/tinyvmi/tinyvmi" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="TinyVMI Source Code">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+
+  <a href="https://twitter.com/cnlelema" class="link-transition twitter link dib z-999 pt3 pt0-l mr2" title="Personal Twitter of Lele Ma">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  <article class="flex-l flex-wrap justify-between mw8 center">
+
+    <header class="mt4 w-100">
+      <p class="f6 b helvetica tracked">
+          
+        POSTS
+      </p>
+      <h1 class="f1 athelas mb1">Porting LibVMI to Mini-OS on Xen Hypervisor</h1>
+      
+      <time class="f6 mv4 dib tracked" datetime="2018-08-13T03:21:22-04:00">August 13, 2018</time>
+    </header>
+
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (<a href="http://libvmi.com">LibVMI</a>) into a tiny operating system (<a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a>). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<h3 id="mini-os-unikernels">Mini-OS &amp; Unikernels</h3>
+
+<p><a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a tiny operating system demo distributed with the Xen hypervisor sources. It has been a basis for development of serveral unikernels, such as including ClickOS and Rump kernels.
+Unikernels, such as Mini-OS, can be viewed as a minimized operating system with following features:</p>
+
+<ul>
+<li><p>No ring0/ring3, or kernel/user mode separation. Traditional operating systems, like Linux, separate programs into kernel mode and user mode to protect malicious users (applications) from accessing kernel memory. However, in unikernels like Mini-OS, there is only one mode, ring0, or kernel mode. This eliminates the burden of maintaining the context-switching between two modes. The code size of the kernel and runtime overhead are both reduced.</p></li>
+
+<li><p>Minimal set of libraries. Instead of shipping with many system/application libraries to provide a general purpose computing environment, a unikernel aims to be configured with a minimal set of libraries that are only necessary for the application runs in it, thus also called a library operating system. For example, in Mini-OS, users can configure with libc to write applications in C language.</p></li>
+</ul>
+
+<!-- <figure>
+<img src="/images/unikernel_minios.png" />
+<figcaption>
+<h4>Fig.1 General Purpose OS vs. Mini-OS Unikernel</h4>
+</figcaption> -->
+
+<!-- 
+![Unikernl Image](/images/unikernel_minios.png) -->
+
+
+<figure>
+    
+        <img src="/images/unikernel_minios.png" alt="Fig.1 General purpose OS vs. Mini-OS Unikernel" />
+    
+    
+    <figcaption>
+        <p>
+        Fig.1 General purpose OS vs. Mini-OS Unikernel
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
+
+<p>As shown in Fig.1, a unikernel is much smaller in size and eliminates all unnecessary tools and libraries, and even file systems from the OS, keeping only the application code and a tiny OS kernel. Such unikernels can be much more efficient than traditional operating systems, especially for cloud platforms where each specialized application is usually managed in a standalone VM. The unikernels are supposed to be the next generation of cloud platform because they can achieve efficiency from several aspects. Those include but not limited to:</p>
+
+<ol>
+<li>Less memmory footprint. A unikernel requires significantly less memory than a traditional operating system. For example, a Mini-OS VM with LibVMI application only requires 64MB of main memory. However, a Linux VM would occupy 4GB of main memory to get average performance for a 64-bit Linux. The reduced memory footprints would allow a single physical machine to host more VMs and reduce the average cost per service.</li>
+<li>Faster booting. Since the memory footprint is small and no redundant libraries or kernel modules, a tiny OS would require significant less time to boot than a traditional OS. Booting a tinyOS is just like to start the application itself.</li>
+<li>No kernel mode switching. OS kernels and applications are in a same chunk of memory region. CPU context switches caused by system calls are eliminated in unikernels. Therefore, the runtime performance of the unikernels can be much better than a traditional OS.</li>
+<li>More secure. Each unikernel&rsquo;s VM runs only one application. Isolation of applications is enforced by the hypervisor, instead of a shared OS kernel. Compared to process isolation or container isolation in a shared Linux, the unikernel is more secure from the lower level isolation.</li>
+<li>Easy deployment, easy to use. Unikernel applications are build into a single binary to run directly as a VM image, which simplifies the deployment of the service. Unikernel applications are designed to be <em>single click and run</em>. All functionalities are customized at building time. Once deployed, the binary package requires no human modifications except the whole binary package being replaced.</li>
+</ol>
+
+<p>In brief, Mini-OS is a tiny OS originated from Xen hypervisor. As most other unikernels, Mini-OS could provide higher performance and more secure computing environment than a traditional operating system on the cloud.</p>
+
+<h3 id="why-porting-libvmi-to-minios">Why porting LibVMI to MiniOS</h3>
+
+<p>LibVMI is a secure critical library that could be used to view a target VM&rsquo;s raw memory from another guest VM, thus gaining a whole view of almost all the activities on the target VM.</p>
+
+<p>Traditionally, LibVMI is running in Dom0 on Xen. However, Dom0 is already very big even without LibVMI in it. I got the idea of separating LibVMI from Dom0 from the the following observations:</p>
+
+<ol>
+<li><p>Dom0 is a general purpose OS hosting many daily use applications, such as administractor tools. However, LibVMI is a special purpose library and usually not for daily use. Furthermore, there are almost no direct communication between LibVMI and other applications. Thus it not necessary to install LibVMI in Dom0.</p></li>
+
+<li><p>Security risk. Dom0 is a critical domain for the hypervisor platform. Introducing new code base to the kernel would also introduce new security risk. Other applications on Dom0 could leverage kernel vulnerability to compromise LibVMI, and vice versa, a bug in LibVMI would possible crash other applications or even the entire Dom0 kernel.</p></li>
+
+<li><p>Performance overhead. As introduced above, a general purpose OS is large and unefficient to run a special purpose application. CPU mode switching, large memory footprints, and process scheduling all introduce overheads for Dom0.</p></li>
+</ol>
+
+<p>Therefore, the project aims to port LibVMI to the tiny Mini-OS, named as <a href="https://github.com/tinyvmi/tinyvmi.git">TinyVMI</a>, to explore whether we can achieve the above benefits.</p>
+
+<h1 id="challenges">Challenges</h1>
+
+<p>First, Xen hypervisor isolates each guest VM from reading other VM&rsquo;s memory pages. A guest VM should get enough permission before it can be used to introspect other VM&rsquo;s memory.  Second, LibVMI depends on serveral libraries that are not supported in the original Mini-OS. Therefore, in this project, we seek for solutions to overcome the two challenges.</p>
+
+<h3 id="permissions-of-accessing-other-vm-s-memory">Permissions of Accessing Other VM&rsquo;s Memory</h3>
+
+<p>To introspect a VM&rsquo;s memory from another guest VM, the first thing is to get permissions from the Xen hypervisor. By default, memory pages of each VM are strictly isolated with each other &ndash; they are not allowed to access the memory pages of other VMs. However, Xen hypervisor allow programmers to open communication channels between two VMs, either by grant page tables or event channels. LibVMI uses grant page tables to remap memory pages from target VM to its own memory space. The permission of granting page tables between VMs are controlled by Xen Security Module (XSM).</p>
+
+<p><a href="https://wiki.xenproject.org/wiki/Xen_Security_Modules_:_XSM-FLASK">Xen Security Module</a> (XSM) uses FLASK policies as in SELinux, to enforce Mandatory Access Control(MAC) between different domains. Each permission is default to be denied unless explicitly being allowed in the policy. Permissions are granted according to multiple categries the guest domain belongs to, such as the types, roles, users, and attributes of the guest domain <a href="https://wiki.xenproject.org/wiki/Xen_Security_Modules_:_XSM-FLASK#Types.2C_roles.2C_users_and_attributes">more</a>.</p>
+
+<p>The category of a VM is labeled in the configuration file we use to create it via <code>xl create &lt;config_file&gt;</code>. For example:</p>
+
+<pre><code>seclabel='system_u:system_r:domU_t1'
+</code></pre>
+
+<p>will label the VM as type <strong>domU_t1</strong>, under role of <strong>system_r</strong>, and user of <strong>system_u</strong>, user <strong>system_u</strong>.  Type is the lowest level of category. Multiple types can be defined as one role multiple roles as one user.</p>
+
+<p>Permissions are granted based on the types of a VM. For example, the permission of <code>map_read</code> allow a domain to map other domain&rsquo;s memory with read only permission. The policy:</p>
+
+<pre><code>allow domU_t1 domU_t2:mmu {map_read};
+</code></pre>
+
+<p>will allow a VM with type <strong>domU_t1</strong> to read the memory of another VM with type <strong>domU_t2</strong>.</p>
+
+<p>In addition to the permissions granted from XSM, we also need to the permission the read information from <a href="https://wiki.xen.org/wiki/XenStore">Xenstore</a>, which is used to get meta data of the target VM, such as getting the Domain ID from the domain&rsquo;s string name. Xenstore permission can be read via command
+<code>xenstore-ls -p</code>:</p>
+
+<pre><code># xenstore-ls -p
+local = &quot;&quot; . . . . . . . . . . . .   (n0)
+ domain = &quot;&quot; . . . . . . . . . . .   (n0)
+  0 = &quot;&quot; . . . . . . . . . . . . .   (n0)
+   domid = &quot;0&quot; . . . . . . . . . .   (n0)
+   name = &quot;Domain-0&quot; . . . . . . .   (n0)
+   device-model = &quot;&quot; . . . . . . .   (n0)
+    0 = &quot;&quot; . . . . . . . . . . . .   (n0)
+     backends = &quot;&quot; . . . . . . . .   (n0)
+      console = &quot;&quot; . . . . . . . .   (n0,n0)
+      vkbd = &quot;&quot;  . . . . . . . . .   (n0,n0)
+      qdisk = &quot;&quot; . . . . . . . . .   (n0,n0)
+      9pfs = &quot;&quot;  . . . . . . . . .   (n0,n0)
+      qusb = &quot;&quot;  . . . . . . . . .   (n0,n0)
+      vfb = &quot;&quot; . . . . . . . . . .   (n0,n0)
+      qnic = &quot;&quot;  . . . . . . . . .   (n0,n0)
+     state = &quot;running&quot; . . . . . .   (n0)
+
+</code></pre>
+
+<p>The meaning of permission could be found from the <a href="https://xenbits.xen.org/docs/4.6-testing/man/xenstore-ls.1.html">manual</a>. Command <a href="https://xenbits.xen.org/docs/4.6-testing/man/xenstore-chmod.1.html">xenstore-chmod</a> can be used to grant reading permissions to certain VM. For example, to enable VM with ID <code>8</code> to read Xenstore directory <code>/local/domain</code>, you can run :</p>
+
+<pre><code class="language-bash">xenstore-chmod -r '/local/domain' r8
+</code></pre>
+
+<h3 id="build-new-libraries-into-mini-os">Build New Libraries into Mini-OS</h3>
+
+<p>The next challenge is building new libraries into Mini-OS.
+Mini-OS is a examplar minimal operating system designed to running on Xen hypervisor. To keep the kernel small, there are only few libraries can be built in it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking.</p>
+
+<p>To port LibVMI to Mini-OS, 3 more libraries are needed. These include two JSON libraries to parse Rekall profiles, <code>libjson-c</code> and <code>libjansson</code>, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
+
+<p>In theory, most libraries written in C language can be built into Mini-OS with the help of <strong>newlib</strong>, such as <code>libjson-c</code>, and <code>libjasson</code>. <a href="https://tinyvmi.github.io/gsoc-blog/post/w08-cross-compile-lib-in-minios">This post</a> introduces how to build new libraries. However, some of them might need to be manually customized for MiniOS by eliminating the unsupported portions, such as <a href="https://developer.gnome.org/glib/">GLib</a>.</p>
+
+<p>Furthermore, security applications written in C++ programs can also be ported into Mini-OS. For example, <a href="https://drakvuf.com/">DRAKVUF</a> is a binary analysis system built ontop of LibVMI and Xen. Portion of its code are in C++ language. To built those code in Mini-OS, we need to cross compile C++ standard libraries into the tiny kernel.</p>
+
+<h1 id="project-status-results">Project Status &amp; Results</h1>
+
+<h3 id="functions-added-to-mini-os">Functions added to Mini-OS</h3>
+
+<ul>
+<li>Support of LibVMI functions to introspect Linux and Windows guest on x86 architecture. ARM architecture and other OS kernels (such as FreeBSD) have not been explored yet.</li>
+<li>A customized <a href="https://github.com/tinyvmi/tinyvmi/tree/master/tiny-vmi/tiny_glib">GLib</a>, a statically compiled <a href="https://github.com/json-c/json-c">libjson-c</a>, and <a href="http://www.digip.org/jansson/">libjansson</a> were cross compiled into Mini-OS.</li>
+<li>C++ language support. C++ standard library from GCC was cross compiled into static libraries, such as libgcc, libstdc++, etc. Now in Mini-OS, we can program with C++ ! not only C. Detailed steps can be found in <a href="https://tinyvmi.github.io/gsoc-blog/post/w12-cpp-cross-compile/">this post</a>.</li>
+</ul>
+
+<h3 id="performance-analysis">Performance Analysis</h3>
+
+
+<figure>
+    
+        <img src="/images/code_size_noxl.png" alt="Fig.2 Code Size of LibVMI and Different Kernels" />
+    
+    
+    <figcaption>
+        <p>
+        Fig.2 Code Size of LibVMI and Different Kernels
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
+
+
+<figure>
+    
+        <img src="/images/perf.png" alt="Fig.3 Time in Walking Through Page Table" />
+    
+    
+    <figcaption>
+        <p>
+        Fig.3 Time in Walking Through Page Table
+        
+            
+        
+        </p> 
+    </figcaption>
+    
+</figure>
+
+
+<p>Fig.2 shows the overall code size</p>
+
+<p>Fig.3 shows the time elapsed of reading one page by walking thought all the 4 levels of the page table while introspecting a 64-bit Linux guest VM. The time is an average of reading 500 consecutive pages.</p>
+
+<h1 id="summary-of-gsoc-2018">Summary of GSoC 2018</h1>
+
+<h3 id="lessons-learned">Lessons Learned</h3>
+
+<ul>
+<li>Hand crafted code vs. modular porting.</li>
+<li>Hardcoding vs. configuration scripts.</li>
+<li>Project management with Makefiles.</li>
+</ul>
+
+<h1 id="future-directions">Future Directions</h1>
+
+<ul>
+<li>DRAKVUF integration</li>
+<li>Dom0 Introspection
+
+<ul>
+<li>xsm module in stubdom?</li>
+<li>minimal dom0 ?</li>
+</ul></li>
+</ul>
+
+<h1 id="acknowledgement">Acknowledgement</h1>
+
+<p>Tamas</p>
+
+<p>GSoC</p>
+
+<h1 id="reference">Reference</h1>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/gsoc-blog/tags/progress" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">progress</a>
+   </li>
+  
+</ul>
+<div class="mt6">
+        
+      </div>
+    </main>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w12-cpp-cross-compile/">Cross Compile C&#43;&#43; Standard Library into Mini-OS</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/">Milestone 02: Enabling Rekall profile, OS support, Xen events support in TinyVMI</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w04-tinyvmi-milestone-framework/">Milestone 01: Main Framework of LibVMI in MiniOS</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w02-tinyvmi_gqueue/">GQueue Ported to TinyVMI</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/gsoc-blog/post/w01-1st-week-progress/">First Week: A primary test with TinyVMI and build up website</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://tinyvmi.github.io/gsoc-blog" >
+    &copy; 2018 TinyVMI
+  </a>
+  
+
+
+
+  <a href="https://tinyvmi.github.io" class="link-transition facebook link dib z-999 pt3 pt0-l mr2" title="TinyVMI Documentation">
+    <i class='fa fa-bookmark'></i> <label>Documentation</label>
+  </a>
+
+
+
+  <a href="https://github.com/tinyvmi/tinyvmi" class="link-transition github link dib z-999 pt3 pt0-l mr2" title="TinyVMI Source Code">
+    <svg  height="32px"  style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+
+  </a>
+
+
+
+  <a href="https://twitter.com/cnlelema" class="link-transition twitter link dib z-999 pt3 pt0-l mr2" title="Personal Twitter of Lele Ma">
+    <svg height="32px"  style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:;"/></svg>
+
+  </a>
+
+
+
+
+
+  </div>
+</footer>
+
+    
+
+  <script src="/gsoc-blog/dist/js/app.3fc0f988d21662902933.js"></script>
+
+
+  </body>
+</html>
