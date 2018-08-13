@@ -22,15 +22,6 @@ Introduction Mini-OS &amp;amp; Unikernels Mini-OS is a tiny operating system dem
     </item>
     
     <item>
-      <title>Cross Compile C&#43;&#43; Standard Library into Mini-OS</title>
-      <link>https://tinyvmi.github.io/gsoc-blog/post/w12-cpp-cross-compile/</link>
-      <pubDate>Mon, 06 Aug 2018 03:56:10 -0400</pubDate>
-      
-      <guid>https://tinyvmi.github.io/gsoc-blog/post/w12-cpp-cross-compile/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Milestone 02: Enabling Rekall profile, OS support, Xen events support in TinyVMI</title>
       <link>https://tinyvmi.github.io/gsoc-blog/post/w09-tinyvmi-milestone-io-rekall/</link>
       <pubDate>Mon, 16 Jul 2018 03:56:10 -0400</pubDate>

@@ -57,7 +57,7 @@
 
 <meta itemprop="datePublished" content="2018-07-09T18:05:55-04:00" />
 <meta itemprop="dateModified" content="2018-07-09T18:05:55-04:00" />
-<meta itemprop="wordCount" content="736">
+<meta itemprop="wordCount" content="747">
 
 
 
@@ -150,7 +150,9 @@
       <time class="f6 mv4 dib tracked" datetime="2018-07-09T18:05:55-04:00">July 9, 2018</time>
     </header>
 
-    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking.
+    <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
+
+<p>Xen <a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a> is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: <strong>newlib</strong> for C language library, Xen related library such as <strong>libxc</strong> to communicate with Xen hypervisor, and <strong>lwip</strong> for basic networking.
 To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as <a href="https://wiki.gnome.org/Projects/GLib">GLib</a>.</p>
 
 <p>The tiny kernel of Mini-OS has limited support for most high level libraries. Some of the libraries could be directly compiled into MiniOS without any changes, such as libjasson, while others might need to be manually customized for MiniOS by eliminating the unsupported portions or only keeping the necessary parts of the library, such as <a href="https://github.com/libvmi/glib_lite">the reduced GLib for LibVMI</a>.</p>
@@ -234,7 +236,14 @@ make cross-json-c </code></pre></div>
 make tinyvmi-stubdom</code></pre></div>
 
 <p>If succeed, you will find the static library file (such as libjson-c.a) under the directory <strong>$(CROSS_PREFIX)/$(GNU_TARGET_ARCH)-xen-elf</strong> (will be  /xen-src/stubdom/cross-root-x86_64/x86_64-xen-elf/lib/libjson-c.a for libjson-c)
-If errors occur, you might need to tweak the configurations and building options of the library by reading the documentation shipped with the library source code. That&rsquo;s all. Thank you!</p>
+If errors occur, you might need to tweak the configurations and building options of the library by reading the documentation shipped with the library source code.</p>
+
+<h2 id="example-2-todo-cross-compile-gcc-c-standard-library-to-mini-os">Example 2: TODO: cross compile GCC C++ standard library to Mini-OS.</h2>
+
+<ul>
+<li>Configure command.</li>
+<li>Makefile examples.</li>
+</ul>
 <ul class="pa0">
   
    <li class="list">

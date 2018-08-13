@@ -40,7 +40,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-05-26T22:46:06-04:00"/>
+<meta property="og:updated_time" content="2018-05-21T09:20:19-04:00"/>
 
 
 
@@ -140,27 +140,6 @@
 
   </main>
     <section class="flex-ns flex-wrap justify-around mt5">
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
-        May 26, 2018
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="/gsoc-blog/post/w02-build-ubu18/" class="link black dim">
-        Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
-$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.
-    </div>
-  </div>
-
-        </div>
       
         <div class="relative w-100 w-30-l mb4 bg-white">
           

@@ -40,7 +40,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-07-09T18:05:55-04:00"/>
+<meta property="og:updated_time" content="2018-06-11T12:49:53-04:00"/>
 
 
 
@@ -146,26 +146,6 @@
             <div class="mb3 pa4 mid-gray overflow-hidden">
     
       <div class="f6">
-        July 9, 2018
-      </div>
-    
-    <h1 class="f3 near-black">
-      <a href="/gsoc-blog/post/w08-cross-compile-lib-in-minios/" class="link black dim">
-        How to Cross Compile a Static Library in Xen Mini-OS
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      Xen Mini-OS is a minimal operating system designed to running on top of Xen hypervisor. To keep the kernel small, there are only few libraries shipped with it: newlib for C language library, Xen related library such as libxc to communicate with Xen hypervisor, and lwip for basic networking. To port LibVMI to Mini-OS, more libraries are needed. These include JSON libraries to parse Rekall profiles, and library with some utility data structures such as GLib.
-    </div>
-  </div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          
-            <div class="mb3 pa4 mid-gray overflow-hidden">
-    
-      <div class="f6">
         June 11, 2018
       </div>
     
@@ -198,6 +178,27 @@
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Port GQueue to TinyVMI. Ongoing LibVMI use multiple caches to temporarily store the fetched information (or reconstructed information) from the target virtual machine. This week a cache called memory_cache_lru is re-implemented in order to keep consistent with the original LibVMI code.
 memory_cache_lru is conceptually similar to TLB in an operating system, which stores the virtual address to phisical address mapping in an order of latest recent unused(LRU). LibVMI uses GQueue in GLib to manage the memory cache LRU list, and TinyVMI previously used a hand-crafted double linked list to store the LRU list.
+    </div>
+  </div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          
+            <div class="mb3 pa4 mid-gray overflow-hidden">
+    
+      <div class="f6">
+        May 26, 2018
+      </div>
+    
+    <h1 class="f3 near-black">
+      <a href="/gsoc-blog/post/w02-build-ubu18/" class="link black dim">
+        Build Xen From Source Code with Ubuntu 18.04: need to update `qemu-xen`
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Problem: When compiling Xen from source with Ubuntu 18.04, yields error: static declaration of ‘memfd_create’ follows non-static declaration:
+$ cd xen-4.10.0 $ ./configure --enable-systemd --enable-stubdom $ make -C xen menuconfig $ make dist-xen $ make dist-tools ...... (looks good) CC util/memfd.o /xen-4.10.0/tools/qemu-xen/util/memfd.c:40:12: error: static declaration of ‘memfd_create’ follows non-static declaration static int memfd_create(const char *name, unsigned int flags) ^~~~~~~~~~~~ In file included from /usr/include/x86_64-linux-gnu/bits/mman-linux.h:115:0, from /usr/include/x86_64-linux-gnu/bits/mman.h:45, from /usr/include/x86_64-linux-gnu/sys/mman.h:41, from /xen-4.10.0/tools/qemu-xen/include/sysemu/os-posix.h:29, from /xen-4.
     </div>
   </div>
 
