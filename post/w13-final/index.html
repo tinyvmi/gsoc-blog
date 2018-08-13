@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>TinyVMI  | Porting LibVMI to Mini-OS on Xen Hypervisor</title>
+    <title>TinyVMI  | TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor</title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
 
@@ -21,6 +21,8 @@
     
 
     
+      <link rel="stylesheet" href="https://tinyvmi.github.io/gsoc-blogcss/mycss.css">
+    
 
     
       
@@ -28,8 +30,8 @@
 
     
 
-    <meta property="og:title" content="Porting LibVMI to Mini-OS on Xen Hypervisor" />
-<meta property="og:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+    <meta property="og:title" content="TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor" />
+<meta property="og:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of TinyVMI is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
 Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://tinyvmi.github.io/gsoc-blog/post/w13-final/" />
@@ -50,21 +52,21 @@ Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo di
 
 
 
-<meta itemprop="name" content="Porting LibVMI to Mini-OS on Xen Hypervisor">
-<meta itemprop="description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+<meta itemprop="name" content="TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor">
+<meta itemprop="description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of TinyVMI is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
 Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources.">
 
 
 <meta itemprop="datePublished" content="2018-08-13T03:21:22-04:00" />
 <meta itemprop="dateModified" content="2018-08-13T03:21:22-04:00" />
-<meta itemprop="wordCount" content="1884">
+<meta itemprop="wordCount" content="2342">
 
 
 
 <meta itemprop="keywords" content="progress," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Porting LibVMI to Mini-OS on Xen Hypervisor"/>
-<meta name="twitter:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
+<meta name="twitter:title" content="TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor"/>
+<meta name="twitter:description" content="This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of TinyVMI is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
 Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources."/>
 
   </head>
@@ -146,14 +148,14 @@ Introduction Mini-OS &amp; Unikernels Mini-OS is a tiny operating system demo di
           
         POSTS
       </p>
-      <h1 class="f1 athelas mb1">Porting LibVMI to Mini-OS on Xen Hypervisor</h1>
+      <h1 class="f1 athelas mb1">TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor</h1>
       
       <time class="f6 mv4 dib tracked" datetime="2018-08-13T03:21:22-04:00">August 13, 2018</time>
     </header>
 
     <main class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l">
 
-<p>This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project is to port a library (<a href="http://libvmi.com">LibVMI</a>) into a tiny operating system (<a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a>). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.</p>
+<p>This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of <a href="https://github.com/tinyvmi/tinyvmi">TinyVMI</a> is to port a library (<a href="http://libvmi.com">LibVMI</a>) into a tiny operating system (<a href="https://wiki.xenproject.org/wiki/Mini-OS">Mini-OS</a>). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.</p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -168,32 +170,12 @@ Unikernels, such as Mini-OS, can be viewed as a minimized operating system with 
 <li><p>Minimal set of libraries. Instead of shipping with many system/application libraries to provide a general purpose computing environment, a unikernel aims to be configured with a minimal set of libraries that are only necessary for the application runs in it, thus also called a library operating system. For example, in Mini-OS, users can configure with libc to write applications in C language.</p></li>
 </ul>
 
-<!-- <figure>
-<img src="/images/unikernel_minios.png" />
-<figcaption>
-<h4>Fig.1 General Purpose OS vs. Mini-OS Unikernel</h4>
-</figcaption> -->
-
-<!-- 
-![Unikernl Image](/images/unikernel_minios.png) -->
-
-
 <figure>
-    
-        <img src="/images/unikernel_minios.png" alt="Fig.1 General purpose OS vs. Mini-OS Unikernel" />
-    
-    
-    <figcaption>
-        <p>
-        Fig.1 General purpose OS vs. Mini-OS Unikernel
-        
-            
-        
-        </p> 
-    </figcaption>
-    
+<img src="/gsoc-blog/images/unikernel_minios.png" style="width:350px;"/>
+<figcaption >
+<h4 class="center">Fig.1 General Purpose OS vs. Mini-OS Unikernel</h4>
+</figcaption> 
 </figure>
-
 
 <p>As shown in Fig.1, a unikernel is much smaller in size and eliminates all unnecessary tools and libraries, and even file systems from the OS, keeping only the application code and a tiny OS kernel. Such unikernels can be much more efficient than traditional operating systems, especially for cloud platforms where each specialized application is usually managed in a standalone VM. The unikernels are supposed to be the next generation of cloud platform because they can achieve efficiency from several aspects. Those include but not limited to:</p>
 
@@ -221,7 +203,7 @@ Unikernels, such as Mini-OS, can be viewed as a minimized operating system with 
 <li><p>Performance overhead. As introduced above, a general purpose OS is large and unefficient to run a special purpose application. CPU mode switching, large memory footprints, and process scheduling all introduce overheads for Dom0.</p></li>
 </ol>
 
-<p>Therefore, the project aims to port LibVMI to the tiny Mini-OS, named as <a href="https://github.com/tinyvmi/tinyvmi.git">TinyVMI</a>, to explore whether we can achieve the above benefits.</p>
+<p>Therefore, we propose to port LibVMI to the tiny Mini-OS, named as <a href="https://github.com/tinyvmi/tinyvmi.git">TinyVMI</a>, to explore whether we can achieve the above benefits.</p>
 
 <h1 id="challenges">Challenges</h1>
 
@@ -291,82 +273,49 @@ Mini-OS is a examplar minimal operating system designed to running on Xen hyperv
 <h3 id="functions-added-to-mini-os">Functions added to Mini-OS</h3>
 
 <ul>
-<li>Support of LibVMI functions to introspect Linux and Windows guest on x86 architecture. ARM architecture and other OS kernels (such as FreeBSD) have not been explored yet.</li>
+<li>Support of LibVMI functions to introspect Linux and Windows guest on x86 architecture. Both <strong>memory access</strong> and <strong>event support</strong> are implemented. ARM architecture and other OS kernels (such as FreeBSD) have not been explored yet.</li>
 <li>A customized <a href="https://github.com/tinyvmi/tinyvmi/tree/master/tiny-vmi/tiny_glib">GLib</a>, a statically compiled <a href="https://github.com/json-c/json-c">libjson-c</a>, and <a href="http://www.digip.org/jansson/">libjansson</a> were cross compiled into Mini-OS.</li>
 <li>C++ language support. C++ standard library from GCC was cross compiled into static libraries, such as libgcc, libstdc++, etc. Now in Mini-OS, we can program with C++ ! not only C. Detailed steps can be found in <a href="https://tinyvmi.github.io/gsoc-blog/post/w12-cpp-cross-compile/">this post</a>.</li>
 </ul>
 
 <h3 id="performance-analysis">Performance Analysis</h3>
 
+<p>In order to evaluate the TinyVMI system, we conduct a simple analysis and experiment to show its efficiency.
+We build two VM domains with LibVMI on the same Xen hypervisor for comparison. One guest VM running Mini-OS with LibVMI and another VM, Dom0, running Linux (Ubuntu 16.04) with LibVMI. The target VM being introspected is a 64-bit Linux (Ubuntu 16.04).
+Results are shown in Fig.2 and Fig.3.</p>
 
 <figure>
-    
-        <img src="/images/code_size_noxl.png" alt="Fig.2 Code Size of LibVMI and Different Kernels" />
-    
-    
-    <figcaption>
-        <p>
-        Fig.2 Code Size of LibVMI and Different Kernels
-        
-            
-        
-        </p> 
-    </figcaption>
-    
+<img src="/gsoc-blog/images/code_size_noxl.png" style="width:350px;" />
+<figcaption >
+<h4 class="center">Fig.2 Code Size of LibVMI and Different Kernels</h4>
+</figcaption> 
 </figure>
-
-
-
 <figure>
-    
-        <img src="/images/perf.png" alt="Fig.3 Time in Walking Through Page Table" />
-    
-    
-    <figcaption>
-        <p>
-        Fig.3 Time in Walking Through Page Table
-        
-            
-        
-        </p> 
-    </figcaption>
-    
+<img src="/gsoc-blog/images/perf.png" style="width:350px;"/>
+<figcaption >
+<h4 class="center">Fig.3 Time in Walking Through Page Table</h4>
+</figcaption> 
 </figure>
 
+<p>Fig.2 shows the overall code size of the OS with LibVMI in it. LibVMI with MiniOS totaled 83K LoC while LibVMI with Linux kernel had 177K LoC, reducing more then 50% percent of code size. Note that the LoC of Linux kernel does not include any driver codes, which reveals the possible minimal size of a Linux kernel. If drivers included, it could be 15M+ LoC for Linux system.</p>
 
-<p>Fig.2 shows the overall code size</p>
+<p>Fig.3 shows the time elapsed of reading one page by walking thought the 4 levels of the page table while introspecting a 64-bit Linux guest VM. The time is an average of reading 500 consecutive pages. LibVMI in Mini-OS took 3.7 microseconds, while LibVMI in Linux took 5.7 microseconds, saving more than 30% of time.</p>
 
-<p>Fig.3 shows the time elapsed of reading one page by walking thought all the 4 levels of the page table while introspecting a 64-bit Linux guest VM. The time is an average of reading 500 consecutive pages.</p>
+<h1 id="conclusion">Conclusion</h1>
 
-<h1 id="summary-of-gsoc-2018">Summary of GSoC 2018</h1>
-
-<h3 id="lessons-learned">Lessons Learned</h3>
-
-<ul>
-<li>Hand crafted code vs. modular porting.</li>
-<li>Hardcoding vs. configuration scripts.</li>
-<li>Project management with Makefiles.</li>
-</ul>
+<p>To briefly conclude the project, we have successfully ported the core functions of LibVMI into the tiny OS on Xen, Mini-OS. By customizing the XSM policy specifications and Xenstore permissions, a guest VM has been granted with permissions to introspect other guest VM via VMI technique. By customizing and cross compiling static libraries into Mini-OS, we have built LibVMI in a tiny OS, enabling a tiny VM to introspect both Linux and Windows guest VM. Evaluations show the code size is reduced by more than 50% and performance is improved by more than 30% compared to VMI operations on Dom0 of Xen.</p>
 
 <h1 id="future-directions">Future Directions</h1>
 
 <ul>
-<li>DRAKVUF integration</li>
-<li>Dom0 Introspection
+<li><p>DRAKVUF integration. After the last week of GSoC, C++ language support was added to TinyVMI under the help of <a href="http://lnotestoself.blogspot.com/2010/06/dmini-os-x8632-cmini-os.html">this post from Notes to self</a>. Next step would be cross compiling the DRAKVUF system into TinyVMI. This will enable much more interesting applications that can take full advantage of LibVMI interfaces already provided in the Mini-OS.</p></li>
 
-<ul>
-<li>xsm module in stubdom?</li>
-<li>minimal dom0 ?</li>
-</ul></li>
+<li><p>Dom0 Introspection. We all know Dom0 is huge. Although much work has been done to disaggregate it, it is still huge. TinyVMI itself has small trusted computing base (TCB). However, we still need to trust Dom0 to enforce the XSM policies. This enlarges the TCB of the system significantly. Since we have to trust Dom0, it will be useless to monitor the main memory of Dom0 from TinyVMI. A further step to disaggregate Dom0 would be separate the XSM module management interface into another stubdom, or just to the same domain as TinyVMI. Taking this apart would make it possible to eliminate Dom0 from the trusted computing base, and allow TinyVMI to monitor Dom0 via VMI techniques.</p></li>
 </ul>
 
 <h1 id="acknowledgement">Acknowledgement</h1>
 
-<p>Tamas</p>
-
-<p>GSoC</p>
-
-<h1 id="reference">Reference</h1>
+<p>Thanks to my mentors, Steven Maresca and Tamas K Lengyel, for accepting me as a student in GSoC this year. This is my first time at GSoC and this exciting project cannot be proceeded so far without your prompt, helpful instructions and graceful patience. Thanks to all Google Summer of Code committees to provide such a great opportunities for us to explore the world of open source!</p>
 <ul class="pa0">
   
    <li class="list">
