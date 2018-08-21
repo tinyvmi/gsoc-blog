@@ -12,13 +12,12 @@
     
     
     <item>
-      <title>TinyVMI: Porting LibVMI to Mini-OS on Xen Hypervisor</title>
+      <title>TinyVMI: Porting LibVMI to Mini-OS on Xen Project Hypervisor</title>
       <link>https://tinyvmi.github.io/gsoc-blog/post/w13-final/</link>
       <pubDate>Mon, 13 Aug 2018 03:21:22 -0400</pubDate>
       
       <guid>https://tinyvmi.github.io/gsoc-blog/post/w13-final/</guid>
-      <description>This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of TinyVMI is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has much smaller size as well as higher performance compared to the same library running on a Linux OS.
-Introduction Mini-OS &amp;amp; Unikernels Mini-OS is a tiny operating system demo distributed with the Xen hypervisor sources.</description>
+      <description>This post introduces the project I worked on with Honeynet Project at Google Summer of Code this year. The project of TinyVMI is to port a library (LibVMI) into a tiny operating system (Mini-OS). After porting, LibVMI will have all its functionalities running inside a tiny virtual machine, which has a much smaller size as well as higher performance compared to the same library running on a Linux OS.</description>
     </item>
     
     <item>
